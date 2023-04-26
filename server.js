@@ -1,42 +1,72 @@
 const express = require('express')
 const app = express()
 const cors = require('cors')
-const PORT = 8000
+const PORT = 3000
+const bodyParser = require('body-parser')
 
-app.use(cors())
+const MongoClient = require('mongodb').MongoClient
+const connectionString = 'mongodb+srv://christinabrgs:Breakingwith@cluster0.qia0kni.mongodb.net/?retryWrites=true&w=majority'
 
-const rappers = {
-    '21 savage': {
-        'age': 29,
-        'birthName': 'Shéyaa Bin Abraham-Joseph',
-        'birthLocation': 'London, England'
-    },
-    'chance the rapper':{
-        'age': 29,
-        'birthName': 'Chancelor Bennett',
-        'birthLocation': 'Chicago, Illinois' 
-    },
-    'unknown':{
-        'age': 0,
-        'birthName': 'unknown',
-        'birthLocation': 'unknown'
-    }
-}
-app.get('/', (request, response)=>{
-    response.sendFile(__dirname + '/index.html')
-})
+MongoClient.connect(connectionString, { useUnifiedTopology: true }) // client grabs input data and stores on mongo website
+    .then(client => {
+        const foodCollection = client.db("food").collection("food");
+        app.set('view engine', 'ejs')
 
-app.get('/api/:name',(request,response)=>{
-    const rapperName = request.params.name.toLowerCase()
+        app.use(express.static('public')) // serves static files in public folder i.e js
+        app.use(bodyParser.urlencoded({extended: true}))
+        app.use(bodyParser.json())
+        app.use(cors())
 
-    if( rappers[rapperName] ){
-        response.json(rappers[rapperName])
-    }else{
-        response.json(rappers['unknown'])
-    }
-    
-})
+        // const food = {
+        //     'tacos': {
+        //         'recipe': 'https://tasty.co/recipe/chicken-fajita-tacos',
+        //         'icon': '🌮',
+        //         'image': 'taco.png'
+        //     },
+        //     'tamale':{
+        //         'recipe': 'https://tasty.co/recipe/mexican-red-pork-tamales-as-made-by-edna-peredia',
+        //         'icon': '🫔',
+        //         'image': 'tamales.png' 
+        //     },
+        //     'burrito':{
+        //         'recipe': 'https://tasty.co/recipe/chicken-rice-bean-burritos',
+        //         'icon': '🌯',
+        //         'image': 'burrito.png'
+        //     }
+        // }
 
-app.listen(process.env.PORT || PORT, ()=>{
-    console.log(`The server is now running on port ${PORT}! Betta Go Catch It!`)
-})
+        app.get('/', async (request, response) => {
+            // const food = await foodCollection.find().toArray()
+            // console.log(food)
+            response.render('index.ejs')
+        })
+
+        // can also be used to serve js file rather than express.static but express is the better option
+        // app.get('/js', (request, response)=>{
+        //     response.sendFile(__dirname + '/main.js')
+        // })
+
+        // app.get('/api/:name', (request, response) => {
+        //     const foodName = request.params.name.toLowerCase()
+
+        //     if (food[foodName]) {
+        //         response.json(food[foodName])
+        //     }
+        //     else{
+        //     response.json(food['unknown'])
+        //     }
+
+        // })
+
+        app.post('/search', async(req, res) => {
+            console.log('body', req.body)
+
+            const food = await foodCollection.find({name: new RegExp(req.body.food, 'i') }).toArray()
+            console.log(food)
+            res.render('index.ejs', { food })
+        })
+
+        app.listen(process.env.PORT || PORT, () => {
+            console.log(`The server is now running on port ${PORT}! Betta Go Catch It!`)
+        })
+    })

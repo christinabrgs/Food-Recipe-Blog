@@ -13,13 +13,25 @@
 <body>
     <section class="search">
     <h1>GET RECIPE</h1>
-    <input name="rapper" type="text" placeholder="look up food name"></input>
-    <button id="submit">submit</button>
+    
+    <form action="/search" method="post">
+        <input name="food" type="text" placeholder="look up food name"></input>
+        <button id="submit">submit</button>
+    </form>
     </section>
 
     <section class="information">
-    <a target="_blank" href=""><img src="yummy.png"></a>
-    <p id="result"></p>
+    <img src="<%= food[0].img %>">
+
+    <% for (i=0; i < food.length; i++) {%>
+    <p id="result"><%= food[i].name %> <span><%= food[i].icon %> </span><a href="<%= food[i].recipe %>">recipe</a> </p>
+    <% } %>
+
+    <!-- <form>
+        <input name="food" type="text" placeholder="add a new recipe"></input>
+        <button id="submit">update recipe</button>
+     </form> -->
+
     </section>
 
     <script src="main.js"></script>
