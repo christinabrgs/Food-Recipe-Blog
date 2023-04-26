@@ -21,10 +21,10 @@
     </section>
 
     <section class="information">
-    <img src="<%= food[0].img %>">
 
     <% for (i=0; i < food.length; i++) {%>
-    <p id="result"><%= food[i].name %> <span><%= food[i].icon %> </span><a href="<%= food[i].recipe %>">recipe</a> </p>
+    <img src="<%= food[i].img %>">
+    <p id="result"><%= food[i].name %> <span> <%= food[i].icon %> </span><a href="<%= food[i].recipe %>">recipe</a> </p>
     <% } %>
 
     <!-- <form>
