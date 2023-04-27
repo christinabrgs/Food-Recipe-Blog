@@ -36,9 +36,9 @@ MongoClient.connect(connectionString, { useUnifiedTopology: true }) // client gr
         // }
 
         app.get('/', async (request, response) => {
-            // const food = await foodCollection.find().toArray()
-            // console.log(food)
-            response.render('index.ejs')
+            const food = await foodCollection.find().toArray()
+            console.log(food)
+            response.render('index.ejs', {food: [], placeholdImg: 'yummy.png'})
         })
 
         // can also be used to serve js file rather than express.static but express is the better option
@@ -63,8 +63,31 @@ MongoClient.connect(connectionString, { useUnifiedTopology: true }) // client gr
 
             const food = await foodCollection.find({name: new RegExp(req.body.food, 'i') }).toArray()
             console.log(food)
-            res.render('index.ejs', { food })
+            res.render('index.ejs', { food, placeholdImg: ''})
         })
+
+        app.put('/search', (req, res) => {
+            foodCollection
+            .findOneAndUpdate({name: ''}, {
+              $set: {
+                name:req.body.newFood + 1,
+                Recipe: req.body.newRecipe
+              }
+            }, {
+              sort: {_id: -1},
+              upsert: true
+            }, (err, result) => {
+              if (err) return res.send(err)
+              res.send(result)
+            })
+          })
+
+        app.delete('/search', (req, res) => {
+            foodCollection.findOneAndDelete({name: req.body.name}, (err, result) => { //img: req.body.img, recipe: req.body.recipe
+              if (err) return res.send(500, err)
+              res.send('Message deleted!')
+            })
+          })
 
         app.listen(process.env.PORT || PORT, () => {
             console.log(`The server is now running on port ${PORT}! Betta Go Catch It!`)

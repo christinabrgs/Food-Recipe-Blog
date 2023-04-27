@@ -2,14 +2,16 @@ const trash = document.getElementsByClassName("fa-trash");
 
 
 function makeReq(){
+    let newFood = document.querySelector('input').value
     let newRecipe = document.querySelector('input').value
-    console.log (newfood)
+    console.log (newRecipe, newFood)
   
-    fetch('search', {
+    fetch('/search', {
       method: 'put',
       headers: {'Content-Type': 'application/json'},
       body: JSON.stringify({
-        'recipe': newRecipe,
+        'newFood' : newFood,
+        'newRecipe': newRecipe,
       })
     })
     .then(response => {
@@ -25,15 +27,18 @@ function makeReq(){
 Array.from(trash).forEach(function(element) {
     element.addEventListener('click', function(){
       const name = this.parentNode.parentNode.childNodes[1].innerText
-      const msg = this.parentNode.parentNode.childNodes[3].innerText
-      fetch('messages', {
+      // const img = this.parentNode.parentNode.childNodes[1].innerText
+      // const recipe = this.parentNode.parentNode.childNodes[5].innerText
+      console.log(name)
+      fetch('search', {
         method: 'delete',
         headers: {
           'Content-Type': 'application/json'
         },
         body: JSON.stringify({
           'name': name,
-          'msg': msg
+          // 'recipe': recipe,
+          // 'img': img,
         })
       }).then(function (response) {
         window.location.reload()
@@ -41,4 +46,4 @@ Array.from(trash).forEach(function(element) {
     });
 });
   
-  document.querySelector('#submit').addEventListener('click', makeReq)
+  // document.querySelector('#submit').addEventListener('click', makeReq)

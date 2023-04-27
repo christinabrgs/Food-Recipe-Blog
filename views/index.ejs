@@ -8,13 +8,14 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Ultra&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/47aae21c46.js" crossorigin="anonymous"></script>
     <title>Document</title>
 </head>
 <body>
     <section class="search">
     <h1>GET RECIPE</h1>
     
-    <form action="/search" method="post">
+    <form class="searchFood" action="/search" method="post">
         <input name="food" type="text" placeholder="look up food name"></input>
         <button id="submit">submit</button>
     </form>
@@ -22,10 +23,20 @@
 
     <section class="information">
 
+    <% if(placeholdImg){%>
+    <img src ="<%= placeholdImg %>">
+    <%} %>
+
+    
     <% for (i=0; i < food.length; i++) {%>
     <img src="<%= food[i].img %>">
-    <p id="result"><%= food[i].name %> <span> <%= food[i].icon %> </span><a href="<%= food[i].recipe %>">recipe</a> </p>
-    <% } %>
+    <p id="result">
+        <span><%= food[i].name %></span>
+        <span><%= food[i].icon %></span>
+        <span><a target="_blank" href="<%= food[i].recipe %>">recipe</a></span>
+        <span><i class="fa-solid fa-trash"></i></span>
+    </p>
+    <%} %>
 
     <!-- <form>
         <input name="food" type="text" placeholder="add a new recipe"></input>
