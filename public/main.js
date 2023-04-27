@@ -2,8 +2,8 @@ const trash = document.getElementsByClassName("fa-trash");
 
 
 function makeReq(){
-    let newFood = document.querySelector('input').value
-    let newRecipe = document.querySelector('input').value
+    let newFood = document.querySelector('.newFood').value
+    let newRecipe = document.querySelector('.newRecipe').value
     console.log (newRecipe, newFood)
   
     fetch('/search', {

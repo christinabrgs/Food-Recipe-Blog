@@ -70,7 +70,7 @@ MongoClient.connect(connectionString, { useUnifiedTopology: true }) // client gr
             foodCollection
             .findOneAndUpdate({name: ''}, {
               $set: {
-                name:req.body.newFood + 1,
+                name:req.body.newFood,
                 Recipe: req.body.newRecipe
               }
             }, {
