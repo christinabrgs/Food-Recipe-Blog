@@ -1,7 +1,7 @@
 const express = require('express')
 const app = express()
 const cors = require('cors')
-const PORT = 3000
+const PORT = 3001
 const bodyParser = require('body-parser')
 
 const MongoClient = require('mongodb').MongoClient
@@ -68,9 +68,9 @@ MongoClient.connect(connectionString, { useUnifiedTopology: true }) // client gr
 
         app.put('/search', (req, res) => {
             foodCollection
-            .findOneAndUpdate({name: ''}, {
+            .insertOne({name: req.body.newFood, recipe: req.body.newRecipe}, {
               $set: {
-                name:req.body.newFood,
+                name: req.body.newFood,
                 Recipe: req.body.newRecipe
               }
             }, {
@@ -82,7 +82,7 @@ MongoClient.connect(connectionString, { useUnifiedTopology: true }) // client gr
             })
           })
 
-        app.delete('/search', (req, res) => {
+        app.delete('/delete', (req, res) => {
             foodCollection.findOneAndDelete({name: req.body.name}, (err, result) => { //img: req.body.img, recipe: req.body.recipe
               if (err) return res.send(500, err)
               res.send('Message deleted!')

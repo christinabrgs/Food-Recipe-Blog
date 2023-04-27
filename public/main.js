@@ -30,7 +30,7 @@ Array.from(trash).forEach(function(element) {
       // const img = this.parentNode.parentNode.childNodes[1].innerText
       // const recipe = this.parentNode.parentNode.childNodes[5].innerText
       console.log(name)
-      fetch('search', {
+      fetch('/delete', {
         method: 'delete',
         headers: {
           'Content-Type': 'application/json'
