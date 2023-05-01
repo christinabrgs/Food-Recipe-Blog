@@ -18,7 +18,7 @@ MongoClient.connect(connectionString, { useUnifiedTopology: true }) // client gr
         app.use(cors())
 
         // const food = {
-        //     'tacos': {
+        //     'taco': {
         //         'recipe': 'https://tasty.co/recipe/chicken-fajita-tacos',
         //         'icon': '🌮',
         //         'image': 'taco.png'
@@ -66,17 +66,10 @@ MongoClient.connect(connectionString, { useUnifiedTopology: true }) // client gr
             res.render('index.ejs', { food, placeholdImg: ''})
         })
 
-        app.put('/search', (req, res) => {
-            foodCollection
-            .insertOne({name: req.body.newFood, recipe: req.body.newRecipe}, {
-              $set: {
-                name: req.body.newFood,
-                Recipe: req.body.newRecipe
-              }
-            }, {
-              sort: {_id: -1},
-              upsert: true
-            }, (err, result) => {
+        app.post('/create', (req, res) => {
+          console.log('post', req.body)  
+          foodCollection
+            .insertOne({name: req.body.newFood, recipe: req.body.newRecipe}, (err, result) => {
               if (err) return res.send(err)
               res.send(result)
             })

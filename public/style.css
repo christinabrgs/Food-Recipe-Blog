@@ -37,18 +37,25 @@ section {
 
 .information {
     padding-top: 50px;
-    margin: 0 auto;
     display: flex;
-    flex-direction: row;
-    justify-content: center;
+    flex-direction: column;
+}
+
+li {
+    list-style: none;
+}
+
+p {
+    overflow: hidden;
+    word-wrap: break-word;
 }
 
 img {
     border-radius: 100%;
-    width: 12%;
+    width: 15%;
     text-align: center;
-    height: 125px;
-    float: left;
+    height: 150px;
+    /* float: left; */
 }
 
 img:hover {
@@ -82,3 +89,22 @@ button {
     float: left;
 }
 
+.newdish {
+    display: flex;
+    width: 28%;
+    position: fixed;
+    padding: 20px;
+    right: 10px;
+    bottom: 0;
+    justify-items: center;
+    background: #167e85;
+    border-radius: 7px 7px 0 0;
+}
+
+.newFood, .newRecipe, #update {
+    width: 100%;
+    margin: 12px 0;
+    margin-left: 10px;
+    text-align: center;
+
+}

@@ -1,13 +1,15 @@
 const trash = document.getElementsByClassName("fa-trash");
 
 
-function makeReq(){
+function makeReq(event){
+    event.preventDefault()
+
     let newFood = document.querySelector('.newFood').value
     let newRecipe = document.querySelector('.newRecipe').value
     console.log (newRecipe, newFood)
   
-    fetch('/search', {
-      method: 'put',
+    fetch('/create', {
+      method: 'post',
       headers: {'Content-Type': 'application/json'},
       body: JSON.stringify({
         'newFood' : newFood,
@@ -22,7 +24,8 @@ function makeReq(){
       window.location.reload(true)
     })
 }
-  
+
+document.querySelector('#update').addEventListener('click', makeReq)
 
 Array.from(trash).forEach(function(element) {
     element.addEventListener('click', function(){
@@ -46,4 +49,4 @@ Array.from(trash).forEach(function(element) {
     });
 });
   
-  // document.querySelector('#submit').addEventListener('click', makeReq)
+  

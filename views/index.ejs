@@ -16,7 +16,7 @@
     <h1>GET RECIPE</h1>
     
     <form class="searchFood" action="/search" method="post">
-        <input name="food" type="text" placeholder="look up food name"></input>
+        <input name="food" type="text" placeholder="look up i.e 'taco'"></input>
         <button id="submit">submit</button>
     </form>
     </section>
@@ -30,21 +30,22 @@
     
     <% for (i=0; i < food.length; i++) {%>
     <img src="<%= food[i].img %>">
-    <p id="result">
+    <ul>
+    <li id="result">
         <span><%= food[i].name %></span>
         <span><%= food[i].icon %></span>
         <span><a target="_blank" href="<%= food[i].recipe %>">recipe</a></span>
         <span><i class="fa-solid fa-trash"></i></span>
-    </p>
+    </li>
+    </ul>
     <%} %>
     </section>
 
-    <section>
-    <form>
+    <section class="newdish">
         <input class="newFood" type="text" placeholder="add a new dish"></input>
-        <input class="newRecipe" type="text" placeholder="add a link to the dish's recipe"></input>
-        <button id="submit">update recipe</button>
-     </form>
+        <input class="newRecipe" type="text" placeholder="add a link"></input>
+        <br>
+        <button id="update">update</button>
     </section>
     
 
