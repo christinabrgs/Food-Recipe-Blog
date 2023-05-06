@@ -19,6 +19,17 @@
         <input name="food" type="text" placeholder="look up i.e 'taco'"></input>
         <button id="submit">submit</button>
     </form>
+
+    <p>
+        <br>
+        try searching:
+        <br>
+        'tacos'
+        <br>
+        'nachos'
+        <br>
+        'salad'
+    </p>
     </section>
 
     <section class="information">
@@ -27,10 +38,9 @@
     <img src ="<%= placeholdImg %>">
     <%} %>
 
-    
+    <ul> <li class="listTitle">RESULTS</li>
     <% for (i=0; i < food.length; i++) {%>
-    <img src="<%= food[i].img %>">
-    <ul>
+    <!-- <img src="<%= food[i].img %>"> -->
     <li id="result">
         <span><%= food[i].name %></span>
         <span><%= food[i].icon %></span>
@@ -42,7 +52,8 @@
     </section>
 
     <section class="newdish">
-        <input class="newFood" type="text" placeholder="add a new dish"></input>
+        <h3>add a recipe you love</h3><br>
+        <input class="newFood" type="text" placeholder="new dish"></input>
         <input class="newRecipe" type="text" placeholder="add a link"></input>
         <br>
         <button id="update">update</button>
